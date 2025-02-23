@@ -1,0 +1,44 @@
+# 视频流/视频地址
+video_source: /home/hzx/Works/deploy-cpp/video/traffic_signal.mov  # 0 表示默认摄像头，也可以是视频文件路径
+
+# YOLO模型配置
+yolo_config:
+  model_path: "/home/hzx/Works/deploy-cpp/models/YOLO/best.onnx"  # 模型路径
+  num_threads: 4           # 线程数
+  conf_threshold: 0.25     # 置信度阈值
+  iou_threshold: 0.45      # NMS IOU阈值
+
+# OCR模型配置
+ocr_config:
+  model_dir: "/home/hzx/Works/deploy-cpp/models/ch_PP-OCRv3_rec_infer"  # 模型路径
+  intra_op_num_threads: 4  # 线程数
+  use_mkldnn: true        # 是否使用MKLDNN加速
+  rec_batch_num: 6        # 批处理大小
+  rec_img_h: 32           # 图像高度
+  rec_img_w: 320          # 图像宽度
+  dict_path: "/home/hzx/Works/deploy-cpp/deps/dict/ppocr_keys_v1.txt"  # 字典文件路径（相对于模型目录）
+
+# 信号灯区域裁切位置 (x, y, width, height)
+signalLightROI:
+  x: 0
+  y: 0
+  width: 0
+  height: 0
+
+# 计时器区域裁切位置 (x, y, width, height)1085 185 230 190
+timerROI:
+  x: 1080
+  y: 180
+  width: 250
+  height: 220
+
+anomaly_thresholds:
+  signal: 30   # 信号灯检测异常阈值（帧数）
+  ocr: 60      # OCR检测异常阈值（帧数）
+
+video_output:
+  enable: true   # 是否启用视频保存
+  path: "./output.avi"  # 视频保存路径
+  codec: "XVID"  # 编码格式（例如 "mp4v" 表示 MP4 格式）
+  fps: 30         # 强制指定帧率（如果输入视频帧率不可用）
+ 
